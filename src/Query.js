@@ -1,11 +1,29 @@
 const githubQuery = {
     query: `
-        {
-          viewer{
-            login
-            name
+    {
+        viewer {
+          name
+        }
+        search(
+          query: "user:stevenchen521 sort:updated-desc"
+          type: REPOSITORY
+          first: 10
+        ) {
+          nodes {
+            ... on Repository {
+              name
+              description
+              id
+              url
+              viewerSubscription
+              licenseInfo{
+                spdxId
+                
+              }
+            }
           }
         }
+      }
       `,
 }
 

@@ -1,10 +1,14 @@
 import github from "./db.js"
 import { useEffect, useState, useCallback } from "react"
 import query from "./Query.js";
+import RepoInfo from "./RepoInfo"
 
 function App() {
 
   let [useName, setUserName] = useState("");
+  let [repoList, setRepoList] = useState(null);
+
+
   const fetchData = useCallback(() => {
     fetch(github.baseURL, {
       method: "POST",
@@ -12,7 +16,12 @@ function App() {
       body: JSON.stringify(query),
     }).then(response => response.json())
       .then(data => {
-        setUserName(data.data.viewer.login)
+        const viewer = data.data.viewer
+        const repos = data.data.search.nodes
+        
+        setUserName(viewer.name)
+        setRepoList(repos)
+
         console.log(data)
       }).catch(err => {
         console.log(err)
@@ -23,14 +32,25 @@ function App() {
     fetchData()
   }, [fetchData])
 
-
   return (
     <div className="App container mt-5">
       <h1 className="text-primary">
         <i className="b1 bi-diagram-2-fill"></i> Repos
-
       </h1>
       <p>Hey there {useName}</p>
+      
+      {repoList && (
+        <ul className="list-group list-group-flush">
+          {
+            repoList.map((repo) => (
+              <RepoInfo key={repo.id} repo= {repo}/>
+          ))}
+
+        </ul>
+
+
+      )}
+
     </div>
   );
 }
