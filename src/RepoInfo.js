@@ -12,7 +12,7 @@ const RepoInfo = ({ repo }) => {
         case "NOASSERTION":
             license = (
                 <span className="px-1 py-0 ms-1 d-inline-block btn btn-sm btn-warning">
-                   {repo.licenseInfo?.spdxId}
+                    {repo.licenseInfo?.spdxId}
                 </span>
             );
             break;
@@ -35,17 +35,17 @@ const RepoInfo = ({ repo }) => {
                     </a>
                     <p className="small">{repo.description}</p>
                 </div>
-            </div>
 
-            <div className="text-nowrap ms-3">
-                {license}
-                <span className={
-                    "px-1 py-1 ms-1 d-inline-block btn btn-sm " +
-                    (repo.viewerSubscription === "SUBSCRIBED" ? "btn-success" : "btn-outline-secondary")
-                }
-                    style={{ fontSize: ".6em" }}>
-                    {repo.viewerSubscription}
-                </span>
+                <div className="text-nowrap ms-3">
+                    {license}
+                    <span className={
+                        "px-1 py-1 ms-1 d-inline-block btn btn-sm " +
+                        (repo.viewerSubscription === "SUBSCRIBED" ? "btn-success" : "btn-outline-secondary")
+                    }
+                        style={{ fontSize: ".6em" }}>
+                        {repo.viewerSubscription}
+                    </span>
+                </div>
             </div>
         </li>
 

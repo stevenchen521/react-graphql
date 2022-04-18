@@ -21,7 +21,6 @@ function App() {
         
         setUserName(viewer.name)
         setRepoList(repos)
-
         console.log(data)
       }).catch(err => {
         console.log(err)
