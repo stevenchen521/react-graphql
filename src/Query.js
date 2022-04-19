@@ -1,30 +1,45 @@
-const githubQuery = {
+const githubQuery = (pageCount, queryString, paginationKeyword, paginationString) => {
+
+  return {
     query: `
     {
         viewer {
           name
         }
         search(
-          query: "user:stevenchen521 sort:updated-desc"
+          query: "${queryString} user:stevenchen521 sort:updated-desc"
           type: REPOSITORY
-          first: 10
+          ${paginationKeyword}: ${pageCount}, ${paginationString}
         ) {
-          nodes {
-            ... on Repository {
-              name
-              description
-              id
-              url
-              viewerSubscription
-              licenseInfo{
-                spdxId
-                
+          repositoryCount
+          edges{
+            cursor
+            node {
+              ... on Repository {
+                name
+                description
+                id
+                url
+                viewerSubscription
+                licenseInfo{
+                  spdxId
+                  
+                }
               }
             }
           }
+          pageInfo{
+            startCursor
+            endCursor
+            hasNextPage
+            hasPreviousPage
+          }
+          
         }
       }
-      `,
+      `
+  }
+
 }
 
 export default githubQuery
